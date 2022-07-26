@@ -1,3 +1,4 @@
+/*global*/
 html,body{
     margin: 0;
     padding: 0;
@@ -24,6 +25,8 @@ h3{
     height: calc(100% - 98px);
 }
 
+/*divide the sides*/
+
 #list-side{
     flex: 3;
     background-color: #3C6E71;
@@ -41,8 +44,8 @@ h3{
 }
 
 
-
-#iImportant, #iNotification{
+/*new task form*/
+.iImportant, #iNotification, #btnSave{
     font-size: 26px;
     cursor: pointer;
     color: black;
@@ -72,6 +75,29 @@ h3{
     margin-left: 40px;
 }
 
-#task-item{
+#form-color{
+    height: 38px;
+}
+
+/*task card portion*/
+.emojiTask, .importantTask{
+    font-size: 40px;
+    margin: 20px auto 5px 20px;
+    cursor: pointer;
+}
+
+.bi-trash3-fill, .bi-pencil-square, .pastDueWarn{
+    font-size: 33px;
+    margin: 5px auto auto 20px;
+    cursor: pointer;
+}
+
+.pastDueWarn{
+    color: red;
+}
+
+.card{
+    margin: auto;
+    max-height: 180px;
     background-color: #D9D9D9;
 }
