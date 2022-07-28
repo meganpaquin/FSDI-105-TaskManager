@@ -5,10 +5,8 @@ function displayTask(newObject){
 
     if(!isImportant){
         importantHtml = "'fa-regular fa-star importantTask iImportant'";
-        console.log(importantHtml);
     }else{
         importantHtml = "'fa-solid fa-star importantTask iImportant'";
-        console.log(importantHtml);
     }
 
     if(newObject.status == 'Past Due'){
@@ -18,7 +16,7 @@ function displayTask(newObject){
     }
 
     let insertHtml = `
-    <div id="task#${id}" class="card mb-3" style="max-width: 540px;">
+    <div id="task#${id}" class="card mb-3" style="border: 4px solid ${newObject.color};">
         <div class="row g-0">
             <div class="col-md-2">
                 <span class="emojiTask">${newObject.emoji}</span>

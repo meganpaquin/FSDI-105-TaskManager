@@ -7,7 +7,7 @@ let isNotify = false;
 let formVisible = true;
 
 function toggleImportant(){
-    let htmlinsert = $('.iImportant');
+    let htmlinsert = $('#iImportant');
     if(!isImportant){
         htmlinsert.removeClass(nonImportantClass);// remove non-important
         htmlinsert.addClass(importantClass);//add important
@@ -90,19 +90,70 @@ function save(){
 
     if(validate(task)){
         console.log(task);
-        displayTask(task);
+        //need to send the task to the server
+        $.ajax({
+            type: "POST",
+            url: 'https://fsdiapi.azurewebsites.net/api/tasks/',
+            data: JSON.stringify(task),
+            contentType: "application/json",
+            success: function(response){
+                console.log('Server says:', response);
+                displayTask(task);
+            },
+            error: function(errorDetails){
+                console.log('Error saving tasks', errorDetails);
+            }
+        })    
     }else{
         console.log('Entry was invalid');
     }
 }
 
+function testRequest(){
+    $.ajax({
+        type:'GET',
+        url:'https://fsdiapi.azurewebsites.net/',
+        success: function(response){
+            console.log('Server Says:', response);
+        },
+        error: function(errorDetails){
+            console.log("Error", errorDetails);
+        }
+    })
+}
+
+function fetchTasks(){
+    $.ajax({
+        type: 'GET',
+        url: 'https://fsdiapi.azurewebsites.net/api/tasks',
+        success: function(response){
+            console.log('Server Says:', response);
+            let tasks = JSON.parse(response);
+            //loop the array to get each object individually
+            for(let i=0; i<tasks.length; i++ ){
+                let task = tasks[i];
+                    //only show my tasks
+                    if(task.name == 'Megan'){
+                        console.log(task);
+                        displayTask(task);
+                    }
+            }
+        },
+        error: function(errorDetails){
+            console.log("Error retrieving tasks", errorDetails);
+        }
+    });
+}
 function init(){
     //everything runs from here
-
-    $('.iImportant').click(toggleImportant);
+    //assign events
+    $('#iImportant').click(toggleImportant);
     $('#iNotification').click(toggleNotify);
     $('#hide-form-btn').click(hideForm);
     $('#btnSave').click(save);
+
+    //load initial data
+    fetchTasks();
 }
 
 window.onload = init;
