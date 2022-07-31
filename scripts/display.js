@@ -1,9 +1,9 @@
 function displayTask(newObject){
     let importantHtml;
-    let id=1;
+    let id = Math.random();
     let pastdue;
 
-    if(!isImportant){
+    if(!newObject.important){
         importantHtml = "'fa-regular fa-star importantTask iImportant'";
     }else{
         importantHtml = "'fa-solid fa-star importantTask iImportant'";
@@ -16,7 +16,7 @@ function displayTask(newObject){
     }
 
     let insertHtml = `
-    <div id="task#${id}" class="card mb-3" style="border: 4px solid ${newObject.color};">
+    <div id="${id}" onclick="toggleDetails(${id})" class="card mb-3" style="border: 4px solid ${newObject.color};">
         <div class="row g-0">
             <div class="col-md-2">
                 <span class="emojiTask">${newObject.emoji}</span>
@@ -38,4 +38,28 @@ function displayTask(newObject){
     </div>
     `
   $('#taskArea').append(insertHtml);
+
+
+
+  let detailInsert = $('#detail-insert');
+  let detailHtml = `
+  <div class="card" id="${id}" style="display:none;">
+                    <div class="card-body">
+                      <h5 class="card-title">${newObject.title}</h5>
+                      <p class="card-text">${newObject.description}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Location: ${newObject.location}</li>
+                      <li class="list-group-item">Status: ${newObject.status}</li>
+                      <li class="list-group-item">Owner: ${newObject.emoji}</li>
+                      <li class="list-group-item">Notifications: ${newObject.notification}</li>
+                      <li class="list-group-item">Importance: ${newObject.important}</li>
+                    </ul>
+                    <div class="card-footer text-muted">
+                        Due: ${newObject.duedate}
+                    </div>
+                </div>
+  `
+
+  detailInsert.append(detailHtml);
 }

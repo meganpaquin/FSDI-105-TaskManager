@@ -5,6 +5,7 @@ let notNotify = 'bi bi-square';
 let Notify = 'bi bi-check-square';
 let isNotify = false;
 let formVisible = true;
+let array;
 
 function toggleImportant(){
     let htmlinsert = $('#iImportant');
@@ -89,7 +90,6 @@ function save(){
     let task = new Task(isImportant, title, description, duedate, color, location, status, emoji, isNotify); 
 
     if(validate(task)){
-        console.log(task);
         //need to send the task to the server
         $.ajax({
             type: "POST",
@@ -134,7 +134,6 @@ function fetchTasks(){
                 let task = tasks[i];
                     //only show my tasks
                     if(task.name == 'Megan'){
-                        console.log(task);
                         displayTask(task);
                     }
             }
@@ -144,6 +143,23 @@ function fetchTasks(){
         }
     });
 }
+
+function toggleDetails(id){
+    //hide the form
+    let theForm = $('#form-side');
+    if(formVisible){
+        theForm.hide();
+        formVisible = false;
+        console.log('hiding the form');
+    }
+    $('#details-side').show();
+
+    let theCard = document.getElementById('id');
+}
+
+
+
+
 function init(){
     //everything runs from here
     //assign events
@@ -151,6 +167,7 @@ function init(){
     $('#iNotification').click(toggleNotify);
     $('#hide-form-btn').click(hideForm);
     $('#btnSave').click(save);
+
 
     //load initial data
     fetchTasks();

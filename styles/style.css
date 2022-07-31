@@ -49,6 +49,14 @@ h3{
     margin: 10px;
 }
 
+#details-side{
+    flex: 2;
+    border: 1px solid black;
+    border-radius: 6px;
+    background-color: #284B63;
+    margin: 10px;
+    display: none;
+}
 
 /*new task form*/
 #iImportant, #iNotification, #btnSave{
@@ -94,7 +102,7 @@ h3{
 
 .bi-trash3-fill, .bi-pencil-square, .pastDueWarn{
     font-size: 33px;
-    margin: 5px auto auto 20px;
+    margin: 10px auto auto 30px;
     cursor: pointer;
 }
 
