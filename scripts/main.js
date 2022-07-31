@@ -36,6 +36,9 @@ function toggleNotify(){
 function hideForm(){
     let theForm = $('#form-side');
     let btntext = $('#hide-form-btn');
+    let theDetails = $('#details-side');
+
+    theDetails.hide();
     if(formVisible){
         theForm.hide();
         formVisible = false;
@@ -147,10 +150,12 @@ function fetchTasks(){
 function toggleDetails(id){
     //hide the form
     let theForm = $('#form-side');
+    let btntext = $('#hide-form-btn');
     if(formVisible){
         theForm.hide();
         formVisible = false;
         console.log('hiding the form');
+        btntext.html('Add New Task');
     }
     //show the details
     $('#details-side').show();
