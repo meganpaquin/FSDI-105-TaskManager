@@ -99,6 +99,7 @@ function save(){
             success: function(response){
                 console.log('Server says:', response);
                 displayTask(task);
+                $(input).value = "";
             },
             error: function(errorDetails){
                 console.log('Error saving tasks', errorDetails);
@@ -127,7 +128,6 @@ function fetchTasks(){
         type: 'GET',
         url: 'https://fsdiapi.azurewebsites.net/api/tasks',
         success: function(response){
-            console.log('Server Says:', response);
             let tasks = JSON.parse(response);
             //loop the array to get each object individually
             for(let i=0; i<tasks.length; i++ ){
@@ -152,12 +152,41 @@ function toggleDetails(id){
         formVisible = false;
         console.log('hiding the form');
     }
+    //show the details
     $('#details-side').show();
+    
+    //hide any previously clicked cards
+    $('.details').hide();
 
-    let theCard = document.getElementById('id');
+    //display the correct card
+    let theCard = document.getElementsByClassName(id);
+    $(theCard).show();
 }
 
+function remove(id){
+    let theCard = document.getElementById(id);
+    let theDetails = document.getElementsByClassName(id);
+    $(theCard).hide();
+    $(theDetails).hide();
+    //actually put an AJAX type:delete here but this server does not allow
+}
 
+function cardImportant(id){
+    let theStar = document.getElementById('star'+id);
+    let theClass = theStar.className;
+    let ImportantClass = "fa-solid fa-star importantTask iImportant"
+    let notImportantClass = "fa-regular fa-star importantTask iImportant"
+
+    if(theClass == ImportantClass){
+        $(theStar).removeClass(ImportantClass);
+        $(theStar).addClass(notImportantClass);
+    }else{
+        $(theStar).removeClass(notImportantClass);
+        $(theStar).addClass(ImportantClass);
+    }
+
+    //ideally you would then push this change to the server, this server does not allow
+}
 
 
 function init(){
